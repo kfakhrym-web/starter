@@ -13,19 +13,23 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        \App\Console\Commands\expiration::class,
+        \App\Console\Commands\notify::class,
     ];
 
     /**
      * Define the application's command schedule.
      *
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
-     * @return void
+     * @return void    
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('user:expire')
+                 ->everyMinute();
+
+        $schedule->command('notify:email')
+                 ->everyMinute();
     }
 
     /**
