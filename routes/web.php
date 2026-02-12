@@ -24,3 +24,11 @@ Route::get('home','HomeController@index')->name('home');
 
 Route::get('redirect/{service}','SocialController@redirect');
 Route::get('callback/{service}','SocialController@callback');
+Route::get('fillable','CrudController@getOffers');
+Route::get('fillable2','CrudController@getOffers2');
+
+Route::group(['prefix' => 'offers'],function(){
+  // Route::get('store','CrudController@store');
+  Route::get('create','CrudController@create');
+  Route::post('store','CrudController@store');
+});
