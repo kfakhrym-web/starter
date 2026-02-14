@@ -14,5 +14,17 @@ return [
     */
     'welcome gus'  => 'اهلا بكم',
     'welcome' => 'اهلا',
+    'offer is required' => 'اسم العرض مطلوب',
+    'offer is found enter other name' => 'اسم العرض موجود يجب ادخال اسم اخر',
+    'price is not valid' => 'السعر غير صحيح',
+    'Add your offer' => 'اضف العرض الخاص بك',
+    'offer name' => 'اسم العرض ',
+    'offer name ar' => 'اسم العرض بالعربى',
+    'offer name en' => 'اسم العرض بالانجليزى',
+    'offer price' => 'سعر العرض',
+    'offer details' => 'تفاصيل العرض',
+    'offer details ar' => 'تفاصيل العرض بالعربي',
+    'offer details en' => 'تفاصيل العرض بالانجليزي',
+    'Save' => 'حفظ',
 
 ];
