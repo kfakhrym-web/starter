@@ -1,71 +1,5 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
+@extends('layouts.app')
+@section('content')
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Navbar</a>
@@ -91,6 +25,11 @@
                     @endif
 
                 <form class="d-flex" role="search">
+
+                    <div class="alert alert-success" id="success-msg" style="display: none">
+                        تم الحذف بنجاح
+                    </div>
+
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
@@ -110,7 +49,7 @@
                 </thead>
                 <tbody>
                 @foreach($offers as $offer)
-                    <tr>
+                    <tr class="offerRow{{$offer->id}}">
                         <th style="text-align: center" class="align-middle" scope="row">{{$offer->id}}</th>
                         <td style="text-align: center" class="align-middle">{{$offer->name}}</td>
                         <td style="text-align: center" class="align-middle">{{$offer->price}}</td>
@@ -124,10 +63,39 @@
                         <a href="{{url('offers/edit/'.$offer->id)}}" class="btn btn-success">{{__('messages.update')}}</a>
                             &nbsp;
                         <a href="{{url('offers/delete/'.$offer->id)}}" class="btn btn-danger">{{__('messages.delete')}}</a>
+
+                        <a href="" offer_id="{{$offer->id}}" class=" delete-ajax btn btn-danger">Delete using ajax</a>
+                        <a href="{{route('ajax.offers.edit',$offer->id)}}" class="btn btn-success">update using ajax</a>
+
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
-    </body>
-</html>
+@stop
+
+@section('scripts')
+    <script>
+        $(document).on('click','.delete-ajax',function (e) {
+            e.preventDefault();
+        var offer_id = $(this).attr('offer_id');
+            $.ajax({
+                type: 'post',
+                url: "{{Route('ajax.offers.delete')}}",
+                data: {
+                    '_token':"{{csrf_token()}}",
+                    'id':offer_id
+                },
+                success: function (data) {
+                    if (data.status === true)
+                        $('#success-msg').show();
+                $('.offerRow'+data.id).remove();
+
+                },
+                error: function (reject) {
+                }
+            });
+        });
+    </script>
+@stop
+

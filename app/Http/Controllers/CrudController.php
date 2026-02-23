@@ -1,6 +1,9 @@
 <?php
 namespace App\Http\Controllers;
+use App\Events\VideoViewer;
 use App\Http\Requests\OfferRequest;
+use App\Models\Video;
+use App\Traits\OfferTrait;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Offer;
@@ -8,7 +11,7 @@ use LaravelLocalization;
 
 class CrudController extends Controller
 {
-
+    use OfferTrait;
     public $messages = [];
     /**
      * Create a new controller instance.
@@ -56,14 +59,17 @@ class CrudController extends Controller
 //        return redirect()->back()->withErrors($validator)->withInput($request ->all());
 //    }
 
+       $file_name =  $this -> saveImages($request -> photo,'images/offers');
+
     // insert data from form to database
-             Offer::create([
+        Offer::create([
+            'photo' => $file_name,
             'price' => $request->price ,
             'name_ar' => $request->name_ar,
             'name_en' => $request->name_en,
             'details_ar' => $request->details_ar,
             'details_en' => $request->details_en,
-          ]);
+              ]);
           return redirect()->back()->with(['success' => 'تم اضافةالطلب لقاعدة البيانات بنجاح']);
         }
 
@@ -71,9 +77,54 @@ class CrudController extends Controller
         $offers = Offer::select('id',
             'name_'.LaravelLocalization::getCurrentLocale() . ' as name',
             'price',
+            'photo',
             'details_'.LaravelLocalization::getCurrentLocale() . ' as details')
              ->get();
         return view('offers.all',compact('offers'));
+        }
+
+        public function editOffer($offer_id){
+        $offer = Offer::find($offer_id);
+        if(!$offer) {
+            return redirect()->back();
+        }
+            $offer = Offer::select('id','name_ar','name_en','details_ar','details_en','price','photo')->find($offer_id);
+            return view('offers.edit',compact('offer'));
+        }
+
+        public function deleteOffer($offer_id)
+        {
+            $offer = Offer::find($offer_id);
+            if(!$offer) {
+                return redirect()->back()->with('error',__('messages.offer not exist'));
+            }
+            $offer->delete();
+            return redirect()->route('offers.all')->with(['success' => __('messages.offer deleted successfully')]);
+        }
+
+        public function UpdateOffer(OfferRequest $request,$offer_id){
+         // validation in other file
+            //check if model exists or not
+            $offer = Offer::select('id','name_ar','name_en','details_ar','details_en','price','photo')->find($offer_id);
+            if(!$offer){
+                return redirect()->back();
+            }
+            // update
+            $offer->update($request -> all());
+
+//            $offer->update([
+//                'name_ar' => $request->name_ar,
+//                'name_en' => $request->name_en,
+//                'price' => $request->price
+//            ]);
+            return redirect() -> back() -> with(['success' => 'تم تحديث البيانات بنجاح']);
+        }
+
+        public function getVideo()
+        {
+            $video = Video::first();
+            event(new VideoViewer($video));
+           return view('video')->with('video',$video);
         }
 
     }

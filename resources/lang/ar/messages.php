@@ -26,5 +26,14 @@ return [
     'offer details ar' => 'تفاصيل العرض بالعربي',
     'offer details en' => 'تفاصيل العرض بالانجليزي',
     'Save' => 'حفظ',
+    'operation' => 'العملية',
+    'update' => 'تحديث',
+    'your data file' => 'بيانات ملفك الشخصى',
+    'offer details is required' => 'بيانات العرض مطلوبة',
+    'add photo' => 'اضف صورة',
+    'display image' => 'عرض الصورة',
+    'delete' => 'حذف',
+    'offer not exist' => 'العرض غير موجود',
+    'offer deleted successfully' => 'العرض تم حذفه بنجاح',
 
 ];

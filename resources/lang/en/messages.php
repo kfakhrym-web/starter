@@ -27,5 +27,14 @@ return [
     'offer details ar' => 'offer details arabic',
     'offer details en' => 'offer details english',
     'Save' => 'Save',
+    'operation' => 'operation',
+    'update' => 'Update',
+    'your data file' => 'Your personal data file',
+    'offer details is required' => 'Offer details is required',
+    'add photo' => 'Add Photo',
+    'display image' => 'Display Image',
+    'delete' => 'Delete',
+    'offer not exist' => 'Offer Not Exist',
+    'offer deleted successfully' => 'Offer Deleted Successfully',
 
 ];

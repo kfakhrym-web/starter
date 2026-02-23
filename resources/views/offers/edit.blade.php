@@ -93,7 +93,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    {{__('messages.Add your offer')}}
+                    {{__('messages.your data file')}}
                 </div>
 
          @if(Session::has('success'))
@@ -102,34 +102,27 @@
                 </div>
          @endif
 
-    <form method="POST" action="{{url('offers\store')}}" enctype="multipart/form-data">
+    <form method="POST" action="{{ url('offers/update/'.$offer->id) }}">
         @csrf
         {{--<input name="_token" value="{{csrf_token()}}">--}}
         <center>
-            <div class="mb-3" style="width:50%">
-                <label for="exampleInputEmail1" class="form-label">{{__('messages.add photo')}}</label>
-                <input type="file" class="form-control" name="photo">
-                @error('photo')
-                <div class="form-text text-danger">{{$message}}</div>
-                @enderror
-            </div>
              <div class="mb-3" style="width:50%">
                     <label for="exampleInputEmail1" class="form-label">{{__('messages.offer name ar')}}</label>
-                    <input type="text" class="form-control" name="name_ar" placeholder="{{__('messages.offer name ar')}}">
+                    <input type="text" class="form-control" name="name_ar" value="{{$offer -> name_ar}}" placeholder="{{__('messages.offer name ar')}}">
                     @error('name_ar')
                     <div class="form-text text-danger">{{$message}}</div>
                     @enderror
              </div>
             <div class="mb-3" style="width:50%">
                 <label for="exampleInputEmail1" class="form-label">{{__('messages.offer name en')}}</label>
-                <input type="text" class="form-control" name="name_en" placeholder="{{__('messages.offer name en')}}">
+                <input type="text" class="form-control" name="name_en" value="{{$offer -> name_en}}" placeholder="{{__('messages.offer name en')}}">
                 @error('name_en')
                 <div class="form-text text-danger">{{$message}}</div>
                 @enderror
             </div>
             <div class="mb-3" style="width:50%">
                     <label for="exampleInputPassword1" class="form-label">{{__('messages.offer price')}}</label>
-                    <input type="text" class="form-control" name="price" placeholder="{{__('messages.offer price')}}">
+                    <input type="text" class="form-control" name="price" value="{{$offer -> price}}" placeholder="{{__('messages.offer price')}}">
 
                 @error('price')
                 <div class="form-text text-danger">{{$message}}</div>
@@ -138,7 +131,7 @@
             </div>
           <div class="mb-3" style="width:50%">
                 <label for="exampleInputPassword1" class="form-label">{{__('messages.offer details ar')}}</label>
-                <input type="text" class="form-control" name="details_ar" placeholder="{{__('messages.offer details ar')}}">
+                <input type="text" class="form-control" name="details_ar" value="{{$offer -> details_ar}}" placeholder="{{__('messages.offer details ar')}}">
 
                 @error('details_ar')
                 <div class="form-text text-danger">{{$message}}</div>
@@ -146,7 +139,7 @@
          </div>
             <div class="mb-3" style="width:50%">
                 <label for="exampleInputPassword1" class="form-label">{{__('messages.offer details en')}}</label>
-                <input type="text" class="form-control" name="details_en" placeholder="{{__('messages.offer details en')}}">
+                <input type="text" class="form-control" name="details_en" value="{{$offer -> details_en}}" placeholder="{{__('messages.offer details en')}}">
 
                 @error('details_en')
                 <div class="form-text text-danger">{{$message}}</div>

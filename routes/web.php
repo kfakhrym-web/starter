@@ -15,26 +15,53 @@
 Auth::routes(['verify'=>true]);
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
-Route::get('/', function(){
-    return 'Home';
-});
+Route::get('/Not-Adaults', function(){
+    return 'not allowed enter less than 15';
+})->name('Not-Adaults');
 
 
-Auth::routes();
-Route::get('home','HomeController@index')->name('home');
+    Auth::routes();
+    Route::get('home','HomeController@index')->name('home');
 
-Route::get('redirect/{service}','SocialController@redirect');
-Route::get('callback/{service}','SocialController@callback');
-Route::get('fillable','CrudController@getOffers');
-Route::get('fillable2','CrudController@getOffers2');
+    Route::get('redirect/{service}','SocialController@redirect');
+    Route::get('callback/{service}','SocialController@callback');
+    Route::get('fillable','CrudController@getOffers');
+    Route::get('fillable2','CrudController@getOffers2');
 
 
-Route::group(['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]],function(){
+    Route::group(['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]],function(){
 
-Route::group(['prefix' => 'offers'],function(){
-  //  Route::get('store','CrudController@store');
-    Route::get('create','CrudController@create');
-    Route::post('store','CrudController@store');
-    Route::get('all','CrudController@getAllOffers');
-  });
-});
+    Route::group(['prefix' => 'offers'],function(){
+        Route::get('create','CrudController@create');
+        Route::post('store','CrudController@store');
+        Route::get('edit/{offer_id}','CrudController@editOffer');
+        Route::post('update/{offer_id}','CrudController@UpdateOffer');
+        Route::get('delete/{offer_id}','CrudController@deleteOffer')->name('offers.delete');
+        Route::get('all','CrudController@getAllOffers')->name('offers.all');
+      });
+    Route::get('youtube','CrudController@getVideo');
+    });
+
+    //////////////////////////////// Begin Ajex section /////////////////////////////
+ Route::group(['prefix' => 'ajax-offers'],function(){
+     Route::get('create','OfferController@create');
+     Route::post('store','OfferController@saveOffer')->name('ajex.offers.save');
+     Route::get('all','OfferController@show')->name('ajex.offers.all');
+     Route::post('delete','OfferController@delete')->name('ajax.offers.delete');
+     Route::get('edit/{id}','OfferController@edit')->name('ajax.offers.edit');
+     Route::post('update','OfferController@Update')->name('ajax.offers.update');
+
+ });
+
+
+   //////////////////////////////// End Ajex section /////////////////////////////
+  //////////////////////////////// Begin Authentication and Guards section ///////////////////////////
+     Route::group(['namespace' => 'Auth','middleware' => 'CheckAge'],function(){
+     Route::get('adualts','CustomAuthController@adualts')->name('adualts');
+     });
+
+     Route::get('site','Auth\CustomAuthController@site')->middleware('auth:web')->name('site');
+     Route::get('Admin','Auth\CustomAuthController@admin')->middleware('auth:admin')->name('admin');
+     Route::get('Admin/login','Auth\CustomAuthController@adminLogin')->name('admin-login');
+     Route::post('Admin/login','Auth\CustomAuthController@checkadminLogin')->name('save.admin.login');
+ //////////////////////////////// End Authentication and Guards section ///////////////////////////

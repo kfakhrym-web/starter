@@ -35,9 +35,13 @@ class OfferRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' =>__('messages.offer is required'),
-            'name.unique' =>__('messages.offer is found enter other name'),
-            'price.numeric' =>__('messages.price is not valid'),
+            'name_ar.required' => __('messages.offer is required'),
+            'name_en.required' => __('messages.offer is required'),
+            'name_ar.unique' => __('messages.offer is found enter other name'),
+            'name_en.unique' => __('messages.offer is found enter other name'),
+            'price.numeric' => __('messages.price is not valid'),
+            'details_ar.required' => __('messages.offer details is required'),
+            'details_en.required' => __('messages.offer details is required'),
         ];
     }
 }
