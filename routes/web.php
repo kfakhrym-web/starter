@@ -39,7 +39,7 @@ Route::get('/Not-Adaults', function(){
         Route::get('delete/{offer_id}','CrudController@deleteOffer')->name('offers.delete');
         Route::get('all','CrudController@getAllOffers')->name('offers.all');
       });
-    Route::get('youtube','CrudController@getVideo');
+    Route::get('youtube','CrudController@getVideo')->middleware('auth');
     });
 
     //////////////////////////////// Begin Ajex section /////////////////////////////
@@ -65,3 +65,24 @@ Route::get('/Not-Adaults', function(){
      Route::get('Admin/login','Auth\CustomAuthController@adminLogin')->name('admin-login');
      Route::post('Admin/login','Auth\CustomAuthController@checkadminLogin')->name('save.admin.login');
  //////////////////////////////// End Authentication and Guards section ///////////////////////////
+
+ //////////////////////////////// Start relations routes ////////////////////////////////
+         ///////////////////// one to one /////////////////////////
+  Route::group(['namespace' => 'Relations'],function(){
+   Route::get('has-one','HasOneController@hasOneRelation');
+   Route::get('has-one-reverse','HasOneController@hasOneRelationReverse');
+   Route::get('user-has-phone','HasOneController@UserHasPhone');
+   Route::get('user-has-not-phone','HasOneController@UserNotHasPhone');
+   Route::get('user-has-phone-condition','HasOneController@UserHasPhoneWithCondition');
+
+        ///////////////////// one to many /////////////////////////
+   Route::get('hospital-has-many','HasManyController@getHospitalDoctors');
+   Route::get('hospitals','HasManyController@hospitals');
+   Route::get('doctors/{hospital_id}','HasManyController@doctors')->name('hospitals.doctors');
+
+   Route::get('hospitals-has-doctors','HasManyController@hospitalsHasDoctors');
+   Route::get('hospitals-has-doctors-male','HasManyController@hospitalsHasDoctorsMale');
+   Route::get('hospitals-not-has-doctors','HasManyController@hospitalsNotHasDoctors');
+
+ //////////////////////////////// End relations routes //////////////////////////////////
+  });
