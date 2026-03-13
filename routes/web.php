@@ -79,10 +79,16 @@ Route::get('/Not-Adaults', function(){
    Route::get('hospital-has-many','HasManyController@getHospitalDoctors');
    Route::get('hospitals','HasManyController@hospitals');
    Route::get('doctors/{hospital_id}','HasManyController@doctors')->name('hospitals.doctors');
-
+   Route::get('hospitals/{hospital_id}','HasManyController@deleteHospital')->name('hospitals.deleteHospital');
    Route::get('hospitals-has-doctors','HasManyController@hospitalsHasDoctors');
    Route::get('hospitals-has-doctors-male','HasManyController@hospitalsHasDoctorsMale');
    Route::get('hospitals-not-has-doctors','HasManyController@hospitalsNotHasDoctors');
-
+      //////////////////////// many to many ////////////////////////
+   Route::get('doctors-service','ManyToMany@getDoctorServices');
+   Route::get('service-doctors','ManyToMany@getServiceDoctors');
+   Route::get('doctors/services/{doctor_id}','ManyToMany@getDoctorOperations')->name('doctors.services');
+   Route::post('saveServices-doctors','ManyToMany@saveServicesForDoctors')->name('doctors.services.save');
+      //////////////////////// has one through ////////////////////////
+   Route::get('has-one-through','HasOneThrough@getPatientDoctors');
  //////////////////////////////// End relations routes //////////////////////////////////
   });

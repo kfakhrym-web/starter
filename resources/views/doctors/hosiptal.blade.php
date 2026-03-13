@@ -29,6 +29,11 @@
                                     <button class="btn btn-success">
                                         <a style="color: red" href="{{route('hospitals.doctors',$hospitals -> id)}}">
                                             عرض الاطباء
+                                            </a>
+                                    </button>
+                                    <button class="btn btn-danger">
+                                        <a style="color: green" href="{{route('hospitals.deleteHospital',$hospitals -> id)}}">
+                                            حذف المستشفى
                                         </a>
                                     </button>
                                 </td>

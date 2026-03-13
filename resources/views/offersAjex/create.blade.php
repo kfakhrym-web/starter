@@ -25,48 +25,35 @@
                 <div class="mb-3" style="width:50%">
                     <label for="exampleInputEmail1" class="form-label">{{__('messages.add photo')}}</label>
                     <input type="file" class="form-control" name="photo">
-                    @error('photo')
-                    <div class="form-text text-danger">{{$message}}</div>
-                    @enderror
+                    <small id="photo_error" class="form-text text-danger"></small>
                 </div>
                 <div class="mb-3" style="width:50%">
                     <label for="exampleInputEmail1" class="form-label">{{__('messages.offer name ar')}}</label>
                     <input type="text" class="form-control" name="name_ar" placeholder="{{__('messages.offer name ar')}}">
-                    @error('name_ar')
-                    <div class="form-text text-danger">{{$message}}</div>
-                    @enderror
+                    <small id="name_ar_error" class="form-text text-danger"></small>
                 </div>
                 <div class="mb-3" style="width:50%">
                     <label for="exampleInputEmail1" class="form-label">{{__('messages.offer name en')}}</label>
                     <input type="text" class="form-control" name="name_en" placeholder="{{__('messages.offer name en')}}">
-                    @error('name_en')
-                    <div class="form-text text-danger">{{$message}}</div>
-                    @enderror
+                    <small id="name_en_error" class="form-text text-danger"></small>
                 </div>
                 <div class="mb-3" style="width:50%">
                     <label for="exampleInputPassword1" class="form-label">{{__('messages.offer price')}}</label>
                     <input type="text" class="form-control" name="price" placeholder="{{__('messages.offer price')}}">
+                    <small id="price_error" class="form-text text-danger"></small>
 
-                    @error('price')
-                    <div class="form-text text-danger">{{$message}}</div>
-                    @enderror
 
                 </div>
                 <div class="mb-3" style="width:50%">
                     <label for="exampleInputPassword1" class="form-label">{{__('messages.offer details ar')}}</label>
                     <input type="text" class="form-control" name="details_ar" placeholder="{{__('messages.offer details ar')}}">
+                    <small id="details_ar_error" class="form-text text-danger"></small>
 
-                    @error('details_ar')
-                    <div class="form-text text-danger">{{$message}}</div>
-                    @enderror
                 </div>
                 <div class="mb-3" style="width:50%">
                     <label for="exampleInputPassword1" class="form-label">{{__('messages.offer details en')}}</label>
                     <input type="text" class="form-control" name="details_en" placeholder="{{__('messages.offer details en')}}">
-
-                    @error('details_en')
-                    <div class="form-text text-danger">{{$message}}</div>
-                    @enderror
+                    <small id="details_en_error" class="form-text text-danger"></small>
                 </div>
                 <button id="save-offer" class="btn btn-primary">{{__('messages.Save')}}</button>
             </center>
@@ -77,6 +64,12 @@
  <script>
      $(document).on('click','#save-offer',function (e) {
          e.preventDefault();
+         $("#photo_error").text('');
+         $("#name_ar_error").text('');
+         $("#name_en_error").text('');
+         $("#price_error").text('');
+         $("#details_ar_error").text('');
+         $("#details_en_error").text('');
          var formData = new FormData($('#offerId')[0]);
          $.ajax({
              type: 'post',
@@ -91,6 +84,11 @@
                     $('#success-msg').show();
              },
              error: function (reject) {
+                 var response = $.parseJSON(reject.responseText);
+                 $.each(response.errors,function (key,val){
+                     $("#" + key + "_error").text(val[0]);
+
+                 });
              }
          });
      });

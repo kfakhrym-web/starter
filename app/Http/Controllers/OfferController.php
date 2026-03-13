@@ -19,7 +19,7 @@ class OfferController extends Controller
 
     }
 
-    public function saveOffer(Request $request){
+    public function saveOffer(OfferRequest $request){
         // save offer to database using Ajex
         $file_name =  $this -> saveImages($request -> photo,'images/offers');
 

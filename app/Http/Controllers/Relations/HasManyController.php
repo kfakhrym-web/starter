@@ -48,4 +48,17 @@ class HasManyController extends Controller
             $q->where('gender','famale');
         })->get();
     }
+
+    public function deleteHospital($id)
+    {
+        $hospital = Hospital::find($id);
+        if (!$hospital) {
+            return response()->json(['message' => 'Hospital not found'], 404);
+        }
+        // Delete all doctors associated with this hospital
+        $hospital->doctors()->delete();
+        // Delete the hospital itself
+        $hospital->delete();
+        return response()->json(['message' => 'Hospital and all its doctors deleted successfully']);
+    }
 }
