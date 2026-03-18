@@ -1,0 +1,89 @@
+body{
+    background-color: rgb(231, 226, 226);
+    display: flex;
+}
+
+.loginContainer{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+}
+
+
+.loginForm{
+    width: 40%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    box-shadow: gray 7px 15px 50px;
+    background-color:#fac774;
+    border-radius: 30px;
+}
+
+.loginData{
+    width: 45%;
+    padding: 40px 40px;
+}
+
+.EmailContainer{
+    width: 95%;
+    margin: auto;
+}
+
+.PasswordContainer{
+    width: 95%;
+    margin: auto;
+}
+
+.ButtonContainer{
+    width: 95%;
+    margin: auto;
+}
+
+.ButtonContainer button{
+    width: 100%;
+    display: block;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.ButtonContainer> :last-child{
+    color: darkblue;
+}
+
+.ButtonContainer> :first-child{
+    text-decoration: none;
+}
+
+#SignUpBtn{
+    text-decoration: none;
+}
+
+.FormLogo{
+    width: 50%;
+    font-size: 50px;
+    font-weight: 700;
+    color: white;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginData p{
+    font-size: 30px;
+    font-weight: 700;
+    width: 95%;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 576px) {
+    .loginData{
+        width: 100%;
+    }
+}
