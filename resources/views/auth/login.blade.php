@@ -1,73 +1,40 @@
-@extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="identify" class="col-md-4 col-form-label text-md-right">Email Or Mobile</label>
-
-                            <div class="col-md-6">
-                                <input id="identify" type="text" class="form-control @error('identify') is-invalid @enderror" name="identify" value="{{ old('identify') }}" required  autofocus>
-
-                                @error('identify')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{asset('css/toastr.css')}}">
+    <link rel="stylesheet" href="{{asset('css/login.css')}}">
+</head>
+<body>
+    <div class="loginContainer">
+        <div class="loginForm">
+            <div class="loginData">
+                <div class="logo">
+                    <p>Digitic.</p>
+                </div>
+                <div class="EmailContainer form-floating mb-3">
+                    <input type="email" class="form-control" id="loginEmail" placeholder="name@example.com">
+                    <label for="loginEmail">Email address</label>
+                </div>
+                <div class="PasswordContainer form-floating mb-3">
+                    <input type="password" class="form-control" id="loginPass" placeholder="">
+                    <label for="loginPass">Password</label>
+                </div>
+                <div class="ButtonContainer">
+                    <a id="loginButton" href=""><button class="btn btn-outline-dark">Login</button></a>
+                    <a href="register.html">I have Not an Account</a>
                 </div>
             </div>
         </div>
     </div>
-</div>
-@endsection
+    <script
+    src="https://code.jquery.com/jquery-3.7.1.js"
+    integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+    <script src="{{asset('js/toaster.js')}}"></script>
+    <script src="{{asset('js/login.js')}}"></script>
+</body>
+</html>

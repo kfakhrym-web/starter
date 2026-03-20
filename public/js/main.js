@@ -21,7 +21,7 @@ async function getProducts(){
     let finalResponse = await response.json();
     products = finalResponse.data;
     console.log(products)
-    showProducts();     
+    showProducts();
 }
 
 // show products
@@ -51,7 +51,7 @@ function showProducts(){
                         <span>(0)</span>
                     </div>
                     <p>${products[i].price}</p>
-                </div>                                
+                </div>
             </div>
         `
     }
@@ -69,7 +69,7 @@ loginIcon.addEventListener("click", function(){
 
 // go to wishlist page
 wishlistButton.addEventListener("click", function(){
-    window.location.href = "wishlist.html";
+    window.location.href = "wishlist.blade.php";
 })
 
 // menu
@@ -95,7 +95,7 @@ closeCart.addEventListener("click", function(){
 // shop categories list
 shopCategoryElement.addEventListener("mouseenter", function(){
     shopCategoryList.style.display = "flex";
-    
+
 })
 shopCategoryElement.addEventListener("mouseleave", function(){
     shopCategoryList.style.display = "none";
