@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Offer;
 use LaravelLocalization;
+use App\Scopes\OfferScopes;
 
 class CrudController extends Controller
 {
@@ -73,15 +74,38 @@ class CrudController extends Controller
           return redirect()->back()->with(['success' => 'تم اضافةالطلب لقاعدة البيانات بنجاح']);
         }
 
+
         public function getAllOffers(){
+        /*
         $offers = Offer::select('id',
             'name_'.LaravelLocalization::getCurrentLocale() . ' as name',
             'price',
             'photo',
             'details_'.LaravelLocalization::getCurrentLocale() . ' as details')
              ->get();
-        return view('offers.all',compact('offers'));
+             return view('offers.all',compact('offers'));
+             */
+
+             ##################### Apply Pagination ####################
+             $offers = Offer::select('id',
+            'name_'.LaravelLocalization::getCurrentLocale() . ' as name',
+            'price',
+            'photo',
+            'details_'.LaravelLocalization::getCurrentLocale() . ' as details')
+             ->paginate(PAGINATION_COUNT);
+            // return view('offers.all',compact('offers'));
+            return view('offers.pagination',compact('offers'));
         }
+
+        public function getAllInActiveOffers(){
+            // where whereNull whereNotNull  whereIn
+            // apply global scope
+        // return $InValidOffer = Offer::get();
+
+        // how remove the global scope
+        return $InValidOffer = Offer::withoutGlobalScope(OfferScopes::class)->get();
+        }
+
 
         public function editOffer($offer_id){
         $offer = Offer::find($offer_id);

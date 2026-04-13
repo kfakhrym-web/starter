@@ -13,7 +13,7 @@ class Doctor extends Model
 
     public function hospital()
     {
-        return $this->belongsTo('App\Models\Hospital','hosiptal_id','id');
+        return $this->belongsTo('App\Models\Hosiptal','hosiptal_id','id');
     }
 
     public function services(){
@@ -22,7 +22,6 @@ class Doctor extends Model
            'doctor_service',
            'doctor_id',
            'service_id',
-           'id',
            'id');
     }
 }

@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+define('PAGINATION_COUNT',1);
 
 Auth::routes(['verify'=>true]);
 
@@ -38,6 +38,7 @@ Route::get('/Not-Adaults', function(){
         Route::post('update/{offer_id}','CrudController@UpdateOffer');
         Route::get('delete/{offer_id}','CrudController@deleteOffer')->name('offers.delete');
         Route::get('all','CrudController@getAllOffers')->name('offers.all');
+        Route::get('all-inactive-offers','CrudController@getAllInActiveOffers')->name('offers.all');
       });
     Route::get('youtube','CrudController@getVideo')->middleware('auth');
     });
@@ -90,5 +91,7 @@ Route::get('/Not-Adaults', function(){
    Route::post('saveServices-doctors','ManyToMany@saveServicesForDoctors')->name('doctors.services.save');
       //////////////////////// has one through ////////////////////////
    Route::get('has-one-through','HasOneThrough@getPatientDoctors');
+      ///////////////////////  has many through ///////////////////////
+   Route::get('has-many-through','HasManyThrough@getCountryDoctors');
  //////////////////////////////// End relations routes //////////////////////////////////
   });
